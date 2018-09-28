@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'direction_course_model',
+    'test_student_model',
     'homework_model',
     'profile_model',
+    'comments_model',
     'contact_model',
+    'message_model',
     'course_model',
     'lesson_model',
+    'like_model'
 ]
 
 MIDDLEWARE = [

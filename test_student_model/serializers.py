@@ -20,6 +20,14 @@ class LessonSerializerList(serializers.HyperlinkedModelSerializer):
         return home_works.data
 
 
+class LessonSerializerWithOutHomeWork(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = (
+            'description',
+        )
+
+
 class QuestionSerializerList(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Question

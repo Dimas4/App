@@ -15,10 +15,10 @@ class Profile(models.Model):
     about_me = models.TextField(blank=True, null=True)
     email = models.EmailField()
 
-    contacts = models.ManyToManyField(Contact, blank=True)
+    contact = models.ManyToManyField(Contact, blank=True)
     course = models.ManyToManyField(Course, blank=True)
     my_homework = models.ManyToManyField(HomeWork, blank=True)
-    saved_lessons = models.ManyToManyField(Lesson, blank=True)
+    saved_lesson = models.ManyToManyField(Lesson, blank=True)
     message = models.ManyToManyField(Message, blank=True)
     comment = models.ManyToManyField(Comment, blank=True)
 

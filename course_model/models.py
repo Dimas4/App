@@ -17,10 +17,12 @@ class Course(models.Model):
     price = models.IntegerField()
     student_count = models.PositiveIntegerField(blank=True, null=True, default=0)
 
+    direction = models.ForeignKey(Direction, blank=True, null=True, on_delete=models.SET_NULL)
+
     home_work = models.ManyToManyField(HomeWork, blank=True)
     lesson = models.ManyToManyField(Lesson, blank=True)
     work = models.ManyToManyField(Work, blank=True)
-    likes = models.ManyToManyField(Like, blank=True)
+    like = models.ManyToManyField(Like, blank=True)
 
     def __str__(self):
         return self.name

@@ -2,7 +2,9 @@ from rest_framework import serializers
 
 from test_student_model.serializers import WorkSerializerList, LessonSerializerList
 from direction_course_model.serializers import DirectionSerializerList
+from like_model.serializers import LikeSerializerList
 from direction_course_model.models import Direction
+from like_model.models import Like
 from .models import Course
 
 
@@ -25,6 +27,7 @@ class CourseSerializerList(serializers.HyperlinkedModelSerializer):
 class CourseSerializerOne(serializers.HyperlinkedModelSerializer):
     work = serializers.SerializerMethodField()
     lesson = serializers.SerializerMethodField()
+    like = serializers.SerializerMethodField()
     direction = serializers.SerializerMethodField('direction_data')
 
     class Meta:
@@ -42,7 +45,8 @@ class CourseSerializerOne(serializers.HyperlinkedModelSerializer):
             'price',
             'work',
             'lesson',
-            'direction'
+            'direction',
+            'like'
         )
 
     def get_work(self, obj):
@@ -50,9 +54,13 @@ class CourseSerializerOne(serializers.HyperlinkedModelSerializer):
         return works.data
 
     def get_lesson(self, obj):
-        lessons = LessonSerializerList(obj.work.all(), many=True)
+        lessons = LessonSerializerList(obj.lesson.all(), many=True)
         return lessons.data
 
     def direction_data(self, obj):
-        direction = DirectionSerializerList(Direction.objects.filter(course_id=obj.id), many=True)
+        direction = DirectionSerializerList(obj.direction)
         return direction.data
+
+    def get_like(self, obj):
+        likes = obj.like.count()
+        return likes

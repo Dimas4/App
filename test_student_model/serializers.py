@@ -6,7 +6,7 @@ from .models import Lesson, Question, Work
 
 
 class LessonSerializerList(serializers.HyperlinkedModelSerializer):
-    home_work = serializers.SerializerMethodField()
+    home_work = serializers.SerializerMethodField('home_work_all')
 
     class Meta:
         model = Lesson
@@ -15,7 +15,7 @@ class LessonSerializerList(serializers.HyperlinkedModelSerializer):
             'home_work'
         )
 
-    def get_home_work(self, obj):
+    def home_work_all(self, obj):
         home_works = HomeWorkSerializerList(HomeWork.objects.filter(lesson_id=obj.id), many=True)
         return home_works.data
 

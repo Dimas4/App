@@ -24,5 +24,5 @@ class Question(models.Model):
 
 class Work(models.Model):
     description = models.TextField()
-    type = models.CharField(choices=work_type)
+    type = models.CharField(max_length=50, choices=work_type)
     question = models.ManyToManyField(Question)

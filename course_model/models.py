@@ -1,7 +1,7 @@
 from django.db import models
 
 from direction_course_model.models import Direction
-from test_student_model.models import Lesson, Test
+from test_student_model.models import Lesson, Work
 from homework_model.models import HomeWork
 from like_model.models import Like
 
@@ -20,7 +20,7 @@ class Course(models.Model):
     direction = models.ManyToManyField(Direction)
     home_work = models.ManyToManyField(HomeWork)
     lesson = models.ManyToManyField(Lesson)
-    test = models.ManyToManyField(Test)
+    work = models.ManyToManyField(Work)
     likes = models.ManyToManyField(Like)
 
     def __str__(self):

@@ -1,11 +1,11 @@
 from django.db import models
 
+from test_student_model.models import Lesson
 from homework_model.models import HomeWork
 from comments_model.models import Comment
 from message_model.models import Message
 from contact_model.models import Contact
 from course_model.models import Course
-from lesson_model.models import Lesson
 
 
 class Profile(models.Model):

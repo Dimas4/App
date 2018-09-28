@@ -17,7 +17,6 @@ class Course(models.Model):
     price = models.IntegerField()
     student_count = models.PositiveIntegerField(blank=True, null=True, default=0)
 
-    direction = models.ManyToManyField(Direction, blank=True)
     home_work = models.ManyToManyField(HomeWork, blank=True)
     lesson = models.ManyToManyField(Lesson, blank=True)
     work = models.ManyToManyField(Work, blank=True)

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from test_student_model.serializers import WorkSerializerList, LessonSerializerList
+from direction_course_model.serializers import DirectionSerializerList
+from direction_course_model.models import Direction
 from .models import Course
 
 
@@ -23,6 +25,7 @@ class CourseSerializerList(serializers.HyperlinkedModelSerializer):
 class CourseSerializerOne(serializers.HyperlinkedModelSerializer):
     work = serializers.SerializerMethodField()
     lesson = serializers.SerializerMethodField()
+    direction = serializers.SerializerMethodField('direction_data')
 
     class Meta:
         model = Course
@@ -38,7 +41,8 @@ class CourseSerializerOne(serializers.HyperlinkedModelSerializer):
             'student_count',
             'price',
             'work',
-            'lesson'
+            'lesson',
+            'direction'
         )
 
     def get_work(self, obj):
@@ -48,3 +52,7 @@ class CourseSerializerOne(serializers.HyperlinkedModelSerializer):
     def get_lesson(self, obj):
         lessons = LessonSerializerList(obj.work.all(), many=True)
         return lessons.data
+
+    def direction_data(self, obj):
+        direction = DirectionSerializerList(Direction.objects.filter(course_id=obj.id), many=True)
+        return direction.data

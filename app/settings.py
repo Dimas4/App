@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'contact_model',
     'message_model',
     'course_model',
-    'lesson_model',
     'like_model'
 ]
 

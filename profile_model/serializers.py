@@ -24,6 +24,24 @@ class ProfileSerializerList(serializers.HyperlinkedModelSerializer):
         )
 
 
+class ProfileSerializerPut(serializers.HyperlinkedModelSerializer):
+    first_name = serializers.CharField(required=False)
+    second_name = serializers.CharField(required=False)
+    avatar = serializers.CharField(required=False)
+    about_me = serializers.CharField(required=False)
+    email = serializers.CharField(required=False)
+
+    class Meta:
+        model = Profile
+        fields = (
+            'first_name',
+            'second_name',
+            'avatar',
+            'about_me',
+            'email',
+        )
+
+
 class ProfileSerializerOne(serializers.HyperlinkedModelSerializer):
     contact = serializers.SerializerMethodField()
     course = serializers.SerializerMethodField()

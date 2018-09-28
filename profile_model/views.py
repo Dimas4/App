@@ -1,8 +1,10 @@
+from django.http import Http404
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from .serializers import ProfileSerializerList, ProfileSerializerOne
+from .serializers import ProfileSerializerList, ProfileSerializerOne, ProfileSerializerPut
 from .models import Profile
 
 
@@ -21,7 +23,22 @@ class ProfileList(APIView):
 
 
 class ProfileOne(APIView):
+    def get_object(self, pk):
+        try:
+            return Profile.objects.get(pk=pk)
+        except Profile.DoesNotExist:
+            raise Http404
+
     def get(self, request, id, format=None):
         profile = Profile.objects.get(id=id)
         serializer = ProfileSerializerOne(profile, context={'request': request})
         return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        profile = self.get_object(id)
+        serializer = ProfileSerializerPut(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
